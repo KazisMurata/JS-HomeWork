@@ -39,13 +39,3 @@ let numbers = bind(f, obj, 1, 2);
 
 console.log(numbers(3, 4));
 
-
-
-
-// function x(...args) {
-//     let a = args;
-//     console.log(...a);
-// }
-
-// x(1, 2, 3, 4, 5, 6);
-
