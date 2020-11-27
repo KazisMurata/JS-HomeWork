@@ -4,13 +4,13 @@ class Hamburger {
     constructor(...args) {
         this.order = new Set();
         this.order.add(args);
-        console.log(this.order);
+
         for (let value of this.order) {
             for (let item of Array.from(value)) {  
                 this.order.add(item);
             }   
         }
-        console.log(this.order);
+
         this.order.delete(args);
 
         // this.order.add(size, stuff);
