@@ -1,17 +1,20 @@
 "use strict";
 
 class Hamburger {
-    constructor(...args) {
-        this.order = new Set();
-        this.order.add(args);
+    constructor(size, stuffing, ...topping) {
+        this.size = size;
+        this.stuffing = stuffing;
+        this.topping = [...topping];
+        // this.order = new Set();
+        // this.order.add(args);
 
-        for (let value of this.order) {
-            for (let item of Array.from(value)) {  
-                this.order.add(item);
-            }   
-        }
+        // for (let value of this.order) {
+        //     for (let item of Array.from(value)) {  
+        //         this.order.add(item);
+        //     }   
+        // }
 
-        this.order.delete(args);
+        // this.order.delete(args);
 
         // this.order.add(size, stuff);
         // this.hamburger = [...args];
@@ -65,22 +68,24 @@ class Hamburger {
         SAUCE: { price: 15, calories: 5 },
     }
 
-
+    
 
     calculatePrice() {
-        let result = Array.from(this.order).reduce((accamulator, currentValue) => accamulator + currentValue.price, 0);
-        // console.log(this.order);
+        let order = [this.size, this.stuffing, ...this.topping];
+        let result = order.reduce((accamulator, currentValue) => accamulator + currentValue.price, 0);
         return `${result} tugricov`;
     }
 
     calculateCalories() {
-        let result = Array.from(this.order).reduce((accamulator, currentValue) => accamulator + currentValue.calories, 0);
+        let order = [this.size, this.stuffing, ...this.topping];
+        let result = order.reduce((accamulator, currentValue) => accamulator + currentValue.calories, 0);
         return `${result} calories`;
     }
 
     addTopping(topping) {
         // this.hamburger.push(topping);
-        this.order.add(topping);
+        // this.order.add(topping);
+        this.topping.push(topping);
     }
 };
 
