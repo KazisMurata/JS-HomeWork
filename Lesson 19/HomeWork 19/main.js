@@ -210,21 +210,19 @@ document.addEventListener('click', function (event) {
 class ToDoModel {
   todos = []
 
-  addTodo(item) {
-    // this.div.textContent = text.value;
+  addTodo() {
+    this.div.textContent = text.value;
 
-    // this.label.append(this.input, this.div, this.editButton, this.closeButton);
-    // this.list.appendChild(this.label);
-    // this.text.value = '';
+    this.label.append(this.input, this.div, this.editButton, this.closeButton);
+    this.list.appendChild(this.label);
+    this.text.value = '';
 
     // list.appendChild(label);
     // text.value = '';
-    this.todos.push(item);
   }
 
-  removeTodo(id) {
-    // event.target.closest('.checkbox').remove();
-    this.todos.filter(todo => todo.id !== id);
+  removeTodo() {
+    event.target.closest('.checkbox').remove();
   }
 
   editTodo() {
@@ -290,7 +288,7 @@ class ToDoView {
     }
   }
 
-  Submit = (event) => {
+  Submit = () => {
     event.preventDefault();
 
     this.div.textContent = text.value;
@@ -322,7 +320,7 @@ class ToDoView {
       formEdit.append(inputEdit, inputEditBtn);
 
       for (let item of list.children) {
-        if (item === target.closest('.checkbox')) {
+        if (item === event.target.closest('.checkbox')) {
           list.replaceChild(formEdit, item);
           formEdit.firstChild.focus();
         }
