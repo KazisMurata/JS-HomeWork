@@ -174,14 +174,14 @@ class ToDoController {
     this._view = view;
 
     this._view.setHandlers({
-      onToggleTodoCheck: (param) => {
-        this._model.toggleTodoCheck(param);
+      onToggleTodoCheck: (id) => {
+        this._model.toggleTodoCheck(id);
       },
-      onAddTodo: (param) => {
-        this._model.addTodo(param);
+      onAddTodo: (value) => {
+        this._model.addTodo(value);
       },
-      onRemoveTodo: (param) => {
-        this._model.removeTodo(param);
+      onRemoveTodo: (id) => {
+        this._model.removeTodo(id);
       },
       onUpdateTodo: (id, value) => {
         this._model.updateTodo(id, value);
