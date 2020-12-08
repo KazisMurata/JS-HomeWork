@@ -19,12 +19,9 @@ class ToDoModel {
     this.todos = this.todos.map(todo => {    
       if (todo.id == id) {
         return { ...todo, completed: !todo.completed  };
-      // todo.completed = !todo.completed;
-      // !todo.completed;
       }
       return todo;
     });
-    console.log(this.todos);
     this.notify();
   }
 
@@ -71,20 +68,9 @@ class ToDoView {
   }
 
   handleChange = ({ target }) => {
-    console.log(target.checked);
-    
-    // this.handlers.onToggleTodoCheck(target.closest('.checkbox').id);
     if (target.tagName === 'INPUT' && target.type === 'checkbox') {
       this.handlers.onToggleTodoCheck(target.closest('.checkbox').id);
-      // if (target.checked) {
-      //   target.checked = !target.checked;
-      // } else {
-      //   target.checked = !target.checked;
-      // }
-      
-      // this.render();
     }
-    
   }
   
   handleSubmit = (event) => {
@@ -137,7 +123,7 @@ class ToDoView {
 
       this.handlers.onUpdateTodo(this.currentToDoId, formEdit.firstChild.nextSibling.value);
       editToDo.innerHTML = `
-        <input type="checkbox" checked=${false}>
+        <input type="checkbox">
         <div class="checkbox__text">${formEdit.firstChild.nextSibling.value}</div>
         <div class="edit__button"><img src="https://img.icons8.com/fluent/18/000000/edit.png"></div>
         <div class="close__button"><img src="https://img.icons8.com/color/18/000000/delete-sign--v1.png"></div>
@@ -146,7 +132,6 @@ class ToDoView {
       for (let item of this._list.children) {
         if (item === formEdit) {
           this._list.replaceChild(editToDo, formEdit);
-
         }
       }
     }
@@ -157,7 +142,7 @@ class ToDoView {
     this._list.innerHTML = ( 
       this._model.todos.map(todo => (`
           <label class="checkbox" id=${todo.id}>
-            <input type="checkbox" checked=${true}>
+            <input type="checkbox" ${todo.completed ? 'checked': ''}>
             <div class="checkbox__text" style= "text-decoration: ${todo.completed ? 'line-through' : 'none'}">${todo.value}</div>
             <div class="edit__button"><img src="https://img.icons8.com/fluent/18/000000/edit.png"></div>
             <div class="close__button"><img src="https://img.icons8.com/color/18/000000/delete-sign--v1.png"></div>
@@ -174,23 +159,16 @@ class ToDoController {
     this._view = view;
 
     this._view.setHandlers({
-      onToggleTodoCheck: (id) => {
-        this._model.toggleTodoCheck(id);
-      },
-      onAddTodo: (value) => {
-        this._model.addTodo(value);
-      },
-      onRemoveTodo: (id) => {
-        this._model.removeTodo(id);
-      },
-      onUpdateTodo: (id, value) => {
-        this._model.updateTodo(id, value);
-      }
+      onToggleTodoCheck: (id) => this._model.toggleTodoCheck(id),
+
+      onAddTodo: (value) => this._model.addTodo(value),
+
+      onRemoveTodo: (id) => this._model.removeTodo(id),
+
+      onUpdateTodo: (id, value) => this._model.updateTodo(id, value),
     });
 
-    this._model.subscribe(() => {
-      this._view.render();
-    })
+    this._model.subscribe(() => this._view.render());
   }
 };
 
